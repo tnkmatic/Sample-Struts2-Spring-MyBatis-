@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="DAILY_ROLLING" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"        value="logs/application.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Append"      value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+<!--
+	http://www.oki-osk.jp/esc/log4j/index.html#basic
+	http://www.oki-osk.jp/esc/log4j/config/A4.html
+	より、category要素 及び priority要素は非推奨のため、
+	logger要素 及び level要素を使用する
+
+	<category name="com.test.log4j.main">
+		<priority value="fatal" />
+	</category>
+
+	<category name="com.test.log4j">
+		<priority value="debug" />
+	</category>
+-->
+
+	<logger name="com.tnkmatic.trial.action">
+		<level value="DEBUG" />
+	</logger>
+
+	<logger name="com.tnkmatic.trial.service.impl">
+		<level value="DEBUG" />
+	</logger>
+
+	<logger name="com.tnkmatic.trial.data">
+		<level value="DEBUG" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+	<!--
+		<appender-ref ref="DAILY_ROLLING" />
+	-->
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- **************************************************************** -->
+	<!--                                                                  -->
+	<!--   Struts2のオブジェクト生成機能の設定の上書き                    -->
+	<!--   SpringのApplicationContextからBeanを取得する設定               -->
+	<!--                                                                  -->
+	<!-- **************************************************************** -->
+	<constant name="struts.objectFactory"
+			value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+
+	<!-- **************************************************************** -->
+	<!--                                                                  -->
+	<!--   アクションクラスに対して型一致でインジェクションする設定       -->
+	<!--                                                                  -->
+	<!-- **************************************************************** -->
+	<constant name="struts.objectFactory.spring.autoWire" value="type" />
+
+	<!-- **************************************************************** -->
+	<!--                                                                  -->
+	<!--   Struts2は予め決められたテンプレートに基づいてレンダリング      -->
+	<!--   simple：最低限のレイアウトを行うテンプレート                   -->
+	<!--   デフォルトは 「xhtml」でテーブルタグを追加したレイアウトになる -->
+	<!--                                                                  -->
+	<!-- **************************************************************** -->
+	<constant name="struts.ui.theme" value="simple" />
+
+	<!-- ****************************************************************** -->
+	<!--                                                                    -->
+	<!--  アクションクラス!メソッド名.actionのURLでリクエスト可能に設定     -->
+	<!--                                                                    -->
+	<!-- ****************************************************************** -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+
+	<!-- ****************************************************************** -->
+	<!--                                                                    -->
+	<!--   開発者モードの設定                                               -->
+	<!--                                                                    -->
+	<!-- ****************************************************************** -->
+	<constant name="struts.devMode" value="false" />
+
+	<!-- ****************************************************************** -->
+	<!--                                                                    -->
+	<!--   パッケージ設定                                                   -->
+	<!--                                                                    -->
+	<!-- ****************************************************************** -->
+	<package name="trial.interceptor.package" extends="struts-default">
+		<interceptors>
+			<interceptor name="loggingInterceptor"
+					class="com.tnkmatic.trial.struts2.interceptor.LoggingInterceptor" />
+			<interceptor-stack name="trial.interceptor.package.interceptor-stack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="loggingInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+	</package>
+
+	<package name="trial.package" namespace="/trial" extends="trial.interceptor.package">
+		<result-types>
+			<result-type name="tiles"
+					class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+	</package>
+
+</struts>

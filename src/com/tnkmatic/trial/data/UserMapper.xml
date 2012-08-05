@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ********************************************************************** -->
+<!-- *                                                                    * -->
+<!-- *  User.xml                                                          * -->
+<!-- *                                                                    * -->
+<!-- ********************************************************************** -->
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tnkmatic.trial.data.UserMapper">
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  resultMap                                                         * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<resultMap id="userInfoResult" type="userInfo">
+		<result property="userId"		column="USER_ID" />
+		<result property="userName"		column="USER_NAME" />
+		<result property="pref"			column="USER_PREF" />
+		<result property="telNumber"	column="USER_TEL_NUMBER" />
+	</resultMap>
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  ユーザ一覧の取得                                                  * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<select id="getUserList" parameterType="UserCond" resultMap="userInfoResult">
+		SELECT   USER_ID
+				,USER_NAME
+				,USER_PREF
+				,USER_TEL_NUMBER
+		FROM     USERS
+		<where>
+		<if test="userId != null and userId != ''">
+				USER_ID = #{userId}
+		</if>
+		<if test="userName != null and userName != ''">
+			AND USER_NAME LIKE CONCAT('%', #{userName}, '%')
+		</if>
+		</where>
+	</select>
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  ユーザの登録                                                      * -->
+	<!-- *  NULLが設定可能な項目はjdbcTypeを指定                              * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<insert id="insertUserInfo" parameterType="userEditInfo">
+		INSERT INTO USERS (
+			USER_ID
+			,USER_NAME
+			,USER_PREF
+			,USER_TEL_NUMBER
+			,PROCESS_TIME
+		) VALUES (
+			#{userId,			jdbcType=INTEGER}
+			,#{userName,		jdbcType=VARCHAR}
+			,#{pref,			jdbcType=VARCHAR}
+			,#{telNumber,		jdbcType=VARCHAR}
+			,NOW()
+		)
+	</insert>
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  ユーザの更新                                                      * -->
+	<!-- *  NULLが設定可能な項目はjdbcTypeを指定                              * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<update id="udpateUserInfo" parameterType="userEditInfo">
+		UPDATE USERS SET
+			USER_NAME			= #{userName,	jdbcType=VARCHAR}
+			,USER_PREF			= #{pref,		jdbcType=VARCHAR}
+			,USER_TEL_NUMBER	= #{telNumber,	jdbcType=VARCHAR}
+			,PROCESS_TIME		= NOW()
+		WHERE USER_ID = #{userId}
+	</update>
+</mapper>

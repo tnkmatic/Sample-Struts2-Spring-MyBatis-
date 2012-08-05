@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC
+	"-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function initDlgOption() {
+	var opt = '';
+
+	opt += 'resizable=no';
+	opt += ';scroll=no';
+	opt += ';status=no';
+
+	return opt;
+}
+
+function popupModal(popupUrl) {
+	var option			= initDlgOption();
+	var contextPath		= '${pageContext.request.contextPath}';
+	var url				= './testPopup.html';
+	
+	option += ';dialogWidth=450px;dialogHeight=500px';	
+	window.alert(option);
+		
+	window.showModalDialog(url, window, option);
+
+	return false;
+}
+</script>
+</head>
+<body>
+
+<form action="#" id="testForm" method="get">
+	<input type="button" id="editButton" value="編集"
+		onclick="popupModal('testPopup.html');">
+</form>
+
+</body>
+</html>

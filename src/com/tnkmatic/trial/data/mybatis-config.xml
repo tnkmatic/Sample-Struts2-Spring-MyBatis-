@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ********************************************************************** -->
+<!-- *                                                                    * -->
+<!-- *  mybatis-config.xml                                                * -->
+<!-- *                                                                    * -->
+<!-- ********************************************************************** -->
+
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  typeAlias                                                         * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<typeAliases>
+		<typeAlias type="com.tnkmatic.trial.dto.UserCondDto"
+			alias="userCond" />
+		<typeAlias type="com.tnkmatic.trial.dto.UserInfoDto"
+			alias="userInfo" />
+		<typeAlias type="com.tnkmatic.trial.dto.UserEditInfoDto"
+			alias="userEditInfo"/>
+	</typeAliases>
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  mapper                                                            * -->
+	<!-- *  ※SqlSessionFactoryBeanのプロパティで設定しているため、           * -->
+	<!-- *  明示的記述はなし                                                  * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+
+</configuration>

@@ -1,0 +1,133 @@
+@CHARSET "UTF-8";
+body.application {
+	background-color	: #F0F8FF;
+	color				: #000000;
+	font				: normal normal normal 10pt Arial;
+	margin				: 0;
+	word-break			: break-all;
+	height				: 100%;
+}
+
+div.pageHeader {
+	font-weight			: bold;
+	font				: normal normal normal 12pt Arial;
+	color				: #FFFFFF;
+	padding				: 2px 2px 2px 2px;
+	background-color	: #000080;
+	border-style		: solid;
+	border-width		: 5px;
+	border-color		: #000080 #000080 #FF0000 #000080;
+}
+
+div.pageTop {
+	background-color	: #BC8F8F;
+	border-style		: solid;
+	border-width		: 5px;
+	border-color		: #BC8F8F #BC8F8F #BC8F8F #BC8F8F;
+}
+
+div.pageMenu {
+	border-style		: solid;
+	border-width		: 3px;
+	border-color		: #BC8F8F #BC8F8F #BC8F8F #BC8F8F;
+}
+
+strong.charRed {
+	color				: #FF0000;
+	font				: normal normal normal 14pt Arial;
+}
+
+span.itemLabel {
+	margin				: 0px 5px 0px 5px;
+}
+
+span.button {
+	margin				: 0px 10px 0px 10px;
+}
+
+table.pageLayout {
+	width				: 100%;
+	border-width		: 0px;
+}
+
+table.menuLayout {
+	width				: 100%;
+	border-collapse		: separate;
+	border-spacing		: 0px;
+}
+
+table.menuLayout th {
+	background-color	: #696969;
+	color				: #FFFFFF;
+	height				: 20px;
+	padding				: 2px 2px 2px 2px;
+	border-style		: solid;
+	border-width		: 1px;
+	border-color		: #696969 #A9A9A9 #A9A9A9 #696969;
+
+}
+
+table.menuLayout td {
+	background-color	: #FAF0E6;
+	font				: normal normal normal 10pt Arial;
+	height				: 30px;
+	padding-left		: 2px;
+	padding-right		: 2px;
+	text-align			: center;
+	border-style		: solid;
+	border-width		: 1px;
+	border-color		: #FFFFFF #A9A9A9 #A9A9A9 #FFFFFF;
+}
+
+table.resultLayout {
+	border				: 2px solid #FFFFE0;
+	border-collapse		: separate;
+	background-color	: #808000;
+	border-spacing		: 0px;
+}
+
+table.resultLayout th {
+	border-style		: solid;
+	border-width		: 2px;
+	background-color	: #FFD700;
+	border-color		: #FFD700 #A9A9A9 #A9A9A9 #FFD700;
+	height				: 20px;
+}
+
+td.formItemLayout {
+	padding				: 0px 0px 0px 0px;
+}
+
+td.list_c {
+	background-color	: #FFFFFF;
+	font				: normal normal normal 10pt Arial;
+	padding-left		: 2px;
+	padding-right		: 2px;
+	text-align			: center;
+	border-style		: solid;
+	border-width		: 2px;
+	border-color		: #FFFFFF #A9A9A9 #A9A9A9 #FFFFFF;
+}
+
+td.list_l {
+	background-color	: #FFFFFF;
+	font				: normal normal normal 10pt Arial;
+	padding-left		: 2px;
+	padding-right		: 2px;
+	text-align			: left;
+	border-style		: solid;
+	border-width		: 2px;
+	border-color		: #FFFFFF #A9A9A9 #A9A9A9 #FFFFFF;
+}
+
+input.button {
+	background-color	: #F0F0F0;
+	height: 			: 20px;
+	width				: 100px;
+}
+
+input.smallButton {
+	background-color	: #F0F0F0;
+	height: 			: 20px;
+	width				: 50px;
+}

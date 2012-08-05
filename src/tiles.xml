@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+<definition name="pageBaseLayout" template="/WEB-INF/jsp/tiles/pageBaseLayout.jsp">
+	<put-attribute name="pageTitle"  value="PageBaseTemplate" />
+	<put-attribute name="pageHeader" value="/WEB-INF/jsp/tiles/headerLayout.jsp" />
+	<put-attribute name="pageMenu"   value="/WEB-INF/jsp/tiles/menuLayout.jsp" />
+	<put-attribute name="pageBody"   value="/WEB-INF/jsp/tiles/bodyLayout.jsp" />
+	<put-attribute name="pageFotter" value="/WEB-INF/jsp/tiles/footerLayout.jsp" />
+</definition>
+
+<definition name="popupBaseLayout" template="/WEB-INF/jsp/tiles/popupBaseLayout.jsp">
+	<put-attribute name="pageTitle"  value="PopupBaseTemplate" />
+	<put-attribute name="pageHeader" value="/WEB-INF/jsp/tiles/headerLayout.jsp" />
+	<put-attribute name="pageBody"   value="/WEB-INF/jsp/tiles/bodyLayout.jsp" />
+	<put-attribute name="pageFotter" value="/WEB-INF/jsp/tiles/footerLayout.jsp" />
+</definition>
+
+<definition name="userMaintenance" extends="pageBaseLayout">
+	<put-attribute name="pageTitle"  value="UserMaintenance" />
+	<put-attribute name="pageBody"   value="/WEB-INF/jsp/page/userList.jsp" />
+</definition>
+
+<definition name="userMaintenancePopup" extends="popupBaseLayout">
+	<put-attribute name="pageTitle"  value="UserMaintenance" />
+	<put-attribute name="pageBody"   value="/WEB-INF/jsp/popup/userPopup.jsp" />
+</definition>
+
+</tiles-definitions>
