@@ -30,4 +30,11 @@ public interface UserMapper {
 	 *************************************************************************/
 	public void udpateUserInfo(UserEditInfoDto userEditInfoDto) throws Exception;
 
+	/**************************************************************************
+	 *
+	 *  ユーザ一情報の削除
+	 *
+	 *************************************************************************/
+	public void deleteUserInfo(List<UserCondDto> userCondDtoList) throws Exception;
+
 }

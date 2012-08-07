@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional
-	public List<UserInfoDto> getUserList(UserCondDto condDto)
+	public List<UserInfoDto> getUserList(UserCondDto userCondDto)
 			throws Exception {
-		final List<UserInfoDto> list = userMapper.getUserList(condDto);
+		final List<UserInfoDto> list = userMapper.getUserList(userCondDto);
 
 		return list;
 	}
@@ -65,5 +65,14 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return;
 		}
+	}
+
+	/* (非 Javadoc)
+	 * @see com.tnkmatic.trial.service.UserService#deleteUser(com.tnkmatic.trial.dto.UserCondDto)
+	 */
+	@Override
+	public void deleteUser(List<UserCondDto> userCondDtoList) throws Exception {
+		userMapper.deleteUserInfo(userCondDtoList);
+		System.out.println("deleteUser Complete!!!");
 	}
 }

@@ -81,4 +81,18 @@
 			,PROCESS_TIME		= NOW()
 		WHERE USER_ID = #{userId}
 	</update>
+
+	<!-- ********************************************************************** -->
+	<!-- *                                                                    * -->
+	<!-- *  ユーザの削除                                                      * -->
+	<!-- *                                                                    * -->
+	<!-- ********************************************************************** -->
+	<delete id="deleteUserInfo" parameterType="userCond">
+		DELETE FROM USERS
+		WHERE USER_ID IN
+		<foreach item="userCondDto" index="index" collection="list"
+			open="(" separator="," close=")">
+			#{userCondDto.userId}
+		</foreach>
+	</delete>
 </mapper>

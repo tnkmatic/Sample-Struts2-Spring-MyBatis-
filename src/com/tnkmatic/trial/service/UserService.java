@@ -19,7 +19,7 @@ public interface UserService {
 	 *  ユーザ一覧情報の取得
 	 *
 	 *************************************************************************/
-	public List<UserInfoDto> getUserList(UserCondDto condDto) throws Exception;
+	public List<UserInfoDto> getUserList(UserCondDto userCondDto) throws Exception;
 
 	/**************************************************************************
 	 *
@@ -30,8 +30,15 @@ public interface UserService {
 
 	/**************************************************************************
 	 *
-	 *  ユーザ一情報の登録
+	 *  ユーザ一情報の登録・更新
 	 *
 	 *************************************************************************/
 	public void editUser(UserEditInfoDto userEditInfoDto) throws Exception;
+
+	/**************************************************************************
+	 *
+	 *  ユーザ一情報の削除
+	 *
+	 *************************************************************************/
+	public void deleteUser(List<UserCondDto> userCondDtoList) throws Exception;
 }

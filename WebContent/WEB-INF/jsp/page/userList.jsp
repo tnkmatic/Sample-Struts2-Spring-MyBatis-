@@ -90,6 +90,7 @@ function openUserPopup(editMode, userId) {
 	<td>
 		<span class="button">
 			<s:submit cssClass="button" value="検索" action="userlist" />
+			<s:submit value="削除" action="userdelete" />
 		</span></td>
 	</tr></table>
 </td></tr>
