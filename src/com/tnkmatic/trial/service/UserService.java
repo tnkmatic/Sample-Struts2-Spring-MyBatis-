@@ -40,5 +40,5 @@ public interface UserService {
 	 *  ユーザ一情報の削除
 	 *
 	 *************************************************************************/
-	public void deleteUser(List<UserCondDto> userCondDtoList) throws Exception;
+	public void deleteUser(List<Integer> userIdList) throws Exception;
 }

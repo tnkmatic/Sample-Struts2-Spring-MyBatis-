@@ -50,9 +50,7 @@ public class UserSearchAction extends BaseAction
 	private UserService userService;
 
 	private UserCondDto userCondDto = new UserCondDto();
-
-	private List<UserInfoDto> 	userList;		//ユーザ検索結果
-	private int 				userCount;		//ユーザ検索結果行数
+	private List<UserInfoDto> userInfoDtoList;
 
 	/**************************************************************************
 	 * Spring AOP と DI を併せて使用すると、インジェクションが出来ないため
@@ -70,7 +68,6 @@ public class UserSearchAction extends BaseAction
 		return;
 	}
 
-
 	/* (非 Javadoc)
 	 * @see com.opensymphony.xwork2.Action#execute()
 	 */
@@ -83,13 +80,7 @@ public class UserSearchAction extends BaseAction
 		/**************************************************************************
 		 * ユーザ一覧取得
 		 *************************************************************************/
-		userList = userService.getUserList(userCondDto);
-
-		/**************************************************************************
-		 * 結果の設定
-		 *************************************************************************/
-		this.setUserList(userList);
-		this.setUserCount(userList.size());
+		userInfoDtoList = userService.getUserList(userCondDto);
 
 		return ActionSupport.SUCCESS;
 	}
@@ -112,22 +103,9 @@ public class UserSearchAction extends BaseAction
 		return userCondDto;
 	}
 
-	public List<UserInfoDto> getUserList() {
-		return userList;
+	public List<UserInfoDto> getUserInfoDtoList() {
+		return userInfoDtoList;
 	}
-
-	public void setUserList(List<UserInfoDto> userList) {
-		this.userList = userList;
-	}
-
-	public int getUserCount() {
-		return userCount;
-	}
-
-	public void setUserCount(int userCount) {
-		this.userCount = userCount;
-	}
-
 
 }
 

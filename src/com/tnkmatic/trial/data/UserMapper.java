@@ -35,6 +35,6 @@ public interface UserMapper {
 	 *  ユーザ一情報の削除
 	 *
 	 *************************************************************************/
-	public void deleteUserInfo(List<UserCondDto> userCondDtoList) throws Exception;
+	public void deleteUserInfo(List<Integer> userIdList) throws Exception;
 
 }

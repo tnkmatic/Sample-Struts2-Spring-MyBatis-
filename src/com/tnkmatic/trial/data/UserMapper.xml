@@ -36,11 +36,11 @@
 				,USER_TEL_NUMBER
 		FROM     USERS
 		<where>
-		<if test="userId != null and userId != ''">
-				USER_ID = #{userId}
+		<if test="condUserId != null and condUserId != ''">
+				USER_ID = #{condUserId}
 		</if>
-		<if test="userName != null and userName != ''">
-			AND USER_NAME LIKE CONCAT('%', #{userName}, '%')
+		<if test="condUserName != null and condUserName != ''">
+			AND USER_NAME LIKE CONCAT('%', #{condUserName}, '%')
 		</if>
 		</where>
 	</select>
@@ -87,12 +87,12 @@
 	<!-- *  ユーザの削除                                                      * -->
 	<!-- *                                                                    * -->
 	<!-- ********************************************************************** -->
-	<delete id="deleteUserInfo" parameterType="userCond">
+	<delete id="deleteUserInfo" parameterType="Integer">
 		DELETE FROM USERS
 		WHERE USER_ID IN
-		<foreach item="userCondDto" index="index" collection="list"
+		<foreach item="userId" index="index" collection="list"
 			open="(" separator="," close=")">
-			#{userCondDto.userId}
+			#{userId}
 		</foreach>
 	</delete>
 </mapper>

@@ -10,6 +10,11 @@
 	src="${pageContext.request.contextPath}/script.js"></script>
 
 <script type="text/javascript">
+/******************************************************************************
+ *
+ * 編集用ポップアップの表示
+ *
+ ******************************************************************************/
 function openUserPopup(editMode, userId) {
 	/******************************************************************************
 	 * 編集モードを意識してポップアップURLを組み立て
@@ -34,7 +39,21 @@ function openUserPopup(editMode, userId) {
 	document.getElementById("hEditMode").value = editMode;
 	eUserEditForm.submit();
 }
+
+/******************************************************************************
+*
+* 削除対象のユーザを拾ってリクエストを発行
+*
+******************************************************************************/
+function deleteCheckedUser() {
+	var eForm = document.getElementById(mainForm);
+window.alert("pass");
+	eForm.submit();
+}
+
 </script>
+
+<s:form id="mainForm" method="post">
 
 <%-- 画面全体レイアウト用 --%>
 <table class="pageLayout">
@@ -48,9 +67,8 @@ function openUserPopup(editMode, userId) {
 		value="新規登録" onclick="openUserPopup(1)" />
 </span>
 <span class="button">
-	<input type="button" class="button"
-		value="削除"
-		onclick="popupModal('${pageContext.request.contextPath}/trial/userdialog);" />
+	<s:submit value="削除" cssClass="button"
+		action="userdelete"  />
 </span>
 </div>
 
@@ -59,7 +77,6 @@ function openUserPopup(editMode, userId) {
 <%-- 検索条件部 --%>
 <tr><td width="100%">
 <div id="condition">
-<s:form method="get">
 
 <%-- 検索条件部のレイアウト --%>
 <table>
@@ -68,12 +85,12 @@ function openUserPopup(editMode, userId) {
 	<td width="60" align="right">
 		<span class="itemLabel">ID：</span></td>
 	<td width="120">
-		<s:textfield id="userId" name="userId" label="ユーザID"
+		<s:textfield id="condUserId" name="condUserId" label="ユーザID"
 			maxlength="3" size="2"/></td>
 	<td width="80" align="right">
 		<span class="itemLabel">氏名：</span></td>
 	<td>
-		<s:textfield id="userName" name="userName" label="ユーザ名"
+		<s:textfield id="condUserName" name="condUserName" label="ユーザ名"
 			size="10"/></td>
 	</tr></table>
 </td></tr>
@@ -82,21 +99,21 @@ function openUserPopup(editMode, userId) {
 	<td width="60" align="right">
 		<span class="itemLabel">出身地：</span></td>
 	<td width="120">
-		<s:textfield id="pref" name="pref" label="出身地" size="10"/></td>
+		<s:textfield id="condPref" name="condPref"
+			label="出身地" size="10"/></td>
 	<td width="80" align="right">
 		<span class="itemLabel">電話番号：</span></td>
 	<td>
-		<s:textfield id="telNumber" name="telNumber" label="電話番号" size="10"/></td>
+		<s:textfield id="condTelNumber" name="condTelNumber"
+			label="電話番号" size="10"/></td>
 	<td>
 		<span class="button">
 			<s:submit cssClass="button" value="検索" action="userlist" />
-			<s:submit value="削除" action="userdelete" />
 		</span></td>
 	</tr></table>
 </td></tr>
 </table>
 
-</s:form>
 </div>
 
 </td></tr>
@@ -126,13 +143,13 @@ function openUserPopup(editMode, userId) {
 	<th align="center">更新</th>
 </tr>
 
+<s:set name="userList" value="userInfoDtoList" />
 
-
-<s:iterator value="userList" >
+<s:iterator value="#userList" >
 
 <tr>
-	<td class="list_c"><input type="checkbox" />
-	<td class="list_c"><s:property value="userId"/></td>
+	<td class="list_c"><s:checkbox name="keys" fieldValue="userId"/></td>
+	<td class="list_c"><s:property value="userId" /></td>
 	<td class="list_l"><s:property value="userName"/></td>
 	<td class="list_l"><s:property value="pref"/></td>
 	<td class="list_c"><s:property value="telNumber"/></td>
@@ -148,11 +165,17 @@ function openUserPopup(editMode, userId) {
 
 </table>
 
+</s:form>
+
 <%-- 編集ポップアップの入力受取用 --%>
-<s:form id="userEditForm" method="get" action="useredit">
+<s:form id="userEditForm" method="post" action="useredit">
 	<s:hidden id="hEditMode" name="editMode" />
 	<s:hidden id="hUserId" name="userId" />
 	<s:hidden id="hUserName" name="userName" />
 	<s:hidden id="hPref" name="pref" />
 	<s:hidden id="hTelNumber" name="telNumber" />
+</s:form>
+
+<s:form id="userDeleteForm" method="get" action="userdelete">
+
 </s:form>

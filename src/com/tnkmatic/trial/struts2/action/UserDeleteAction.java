@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import com.tnkmatic.trial.dto.UserCondDto;
+import com.tnkmatic.trial.dto.UserEditInfoDto;
 import com.tnkmatic.trial.service.UserService;
 import com.tnkmatic.trial.util.Log4jUtil;
 
@@ -36,13 +36,14 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Controller("userDeleteAction")
 @Scope("prototype")
 public class UserDeleteAction extends BaseAction
-		implements ModelDriven<UserCondDto> {
+		implements ModelDriven<UserEditInfoDto> {
+
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
 	private UserService userService;
 
-	private UserCondDto userCondDto = new UserCondDto();
+	private UserEditInfoDto userEditInfoDto = new UserEditInfoDto();
 
 	/* (非 Javadoc)
 	 * @see com.tnkmatic.trial.struts2.action.BaseAction#init()
@@ -62,9 +63,18 @@ public class UserDeleteAction extends BaseAction
 						location="userlist"
 						)})
 	public String execute() throws Exception {
-		List<UserCondDto> list = new ArrayList<UserCondDto>();
-		list.add(userCondDto);
-		userService.deleteUser(list);
+		List<Integer> userIdList = new ArrayList<Integer>();
+
+		for (final Integer userId : userEditInfoDto.getKeys()) {
+			if (userId != null) {
+				userIdList.add(userId);
+			}
+		}
+
+		if (userIdList.size() > 0) {
+			userService.deleteUser(userIdList);
+		}
+
 		return ActionSupport.SUCCESS;
 	}
 
@@ -76,12 +86,15 @@ public class UserDeleteAction extends BaseAction
 		return;
 	}
 
-	/* (非 Javadoc)
-	 * @see com.opensymphony.xwork2.ModelDriven#getModel()
-	 */
+	/**************************************************************************
+	 *
+	 *  getter,setter
+	 *
+	 *************************************************************************/
 	@Override
-	public UserCondDto getModel() {
-		// TODO 自動生成されたメソッド・スタブ
-		return userCondDto;
+	public UserEditInfoDto getModel() {
+		return userEditInfoDto;
 	}
+
+
 }

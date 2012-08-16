@@ -42,10 +42,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional
-	public UserInfoDto getUserByPrimaryKey(Integer userId) throws Exception {
+	public UserInfoDto getUserByPrimaryKey(Integer condUserId) throws Exception {
 		final UserCondDto userCondDto = new UserCondDto();
 
-		userCondDto.setUserId(userId);
+		userCondDto.setCondUserId(condUserId);
 
 		final List<UserInfoDto> list = userMapper.getUserList(userCondDto);
 
@@ -71,8 +71,7 @@ public class UserServiceImpl implements UserService {
 	 * @see com.tnkmatic.trial.service.UserService#deleteUser(com.tnkmatic.trial.dto.UserCondDto)
 	 */
 	@Override
-	public void deleteUser(List<UserCondDto> userCondDtoList) throws Exception {
-		userMapper.deleteUserInfo(userCondDtoList);
-		System.out.println("deleteUser Complete!!!");
+	public void deleteUser(List<Integer> userIdList) throws Exception {
+		userMapper.deleteUserInfo(userIdList);
 	}
 }

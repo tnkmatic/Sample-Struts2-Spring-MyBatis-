@@ -8,7 +8,7 @@
 package com.tnkmatic.trial.dto;
 
 public class UserEditInfoDto extends UserInfoDto {
-	int editMode;		// 1:登録 2:更新
+	int editMode;		// 1:登録 2:更新 3:削除
 
 	public int getEditMode() {
 		return editMode;

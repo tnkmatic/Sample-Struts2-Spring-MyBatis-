@@ -8,22 +8,22 @@
 package com.tnkmatic.trial.dto;
 
 public class UserCondDto extends BaseDto {
-	private Integer	userId;			//ユーザID
-	private String		userName;		//ユーザ名
+	private Integer	condUserId;		//ユーザID
+	private String		condUserName;	//ユーザ名
 
-	public Integer getUserId() {
-		return userId;
+	public Integer getCondUserId() {
+		return condUserId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setCondUserId(Integer condUserId) {
+		this.condUserId = condUserId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getCondUserName() {
+		return condUserName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCondUserName(String condUserName) {
+		this.condUserName = condUserName;
 	}
 }
