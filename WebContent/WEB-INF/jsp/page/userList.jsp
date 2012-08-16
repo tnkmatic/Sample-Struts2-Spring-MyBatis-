@@ -1,6 +1,9 @@
 <%@ page language="java"
 	contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ page import="com.tnkmatic.trial.util.StaticValues" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -35,20 +38,38 @@ function openUserPopup(editMode, userId) {
 	/******************************************************************************
 	 * 登録のリクエスト発行
 	 ******************************************************************************/
-	var eUserEditForm = document.getElementById("userEditForm");
-	document.getElementById("hEditMode").value = editMode;
+	var eUserEditForm = document.getElementById('userEditForm');
+	document.getElementById('hEditMode').value = editMode;
 	eUserEditForm.submit();
 }
 
 /******************************************************************************
-*
-* 削除対象のユーザを拾ってリクエストを発行
-*
-******************************************************************************/
+ *
+ * 削除リクエストを発行
+ *
+ *****************************************************************************/
 function deleteCheckedUser() {
-	var eForm = document.getElementById(mainForm);
-window.alert("pass");
-	eForm.submit();
+	var eForm		= document.getElementById('mainForm');
+	var eInputs		= document.getElementsByTagName('input');
+	var checked		= false;
+
+	for (var i = 0; i < eInputs.length; i++) {
+		if (eInputs.item(i).type == 'checkbox'
+				&& eInputs.item(i).name == 'keys'
+				&& eInputs.item(i).checked) {
+			checked = true;
+			break;
+		}
+	}
+
+	if (checked == false) {
+		window.alert('削除対象を選択してください。');
+		return false;
+	} else {
+		eForm.action = 'userdelete';
+		eForm.submit();
+		return;
+	}
 }
 
 </script>
@@ -63,12 +84,14 @@ window.alert("pass");
 
 <div id="top" class="pageTop">
 <span class="button">
-	<input type="button" class="button"
-		value="新規登録" onclick="openUserPopup(1)" />
+	<input type="button" class="button" value="新規登録"
+		onclick="openUserPopup(<%= StaticValues.EDIT_MODE_ENTRY %>)" />
 </span>
 <span class="button">
-	<s:submit value="削除" cssClass="button"
-		action="userdelete"  />
+	<%-- <s:submit value="削除" cssClass="button" onclick="deleteCheckedUser();"
+		action="userdelete"  /> --%>
+	<input type="button" class="button" value="削除"
+		onclick="deleteCheckedUser();" />
 </span>
 </div>
 
@@ -121,7 +144,7 @@ window.alert("pass");
 <%-- 結果表示部 --%>
 <tr><td width="100%">
 <div id="list">
-<table class="resultLayout">
+<table id="resultTable" class="resultLayout">
 <caption>
 検索結果：　<strong class="charRed"><s:property value="userCount"/></strong>　人
 </caption>
@@ -148,13 +171,14 @@ window.alert("pass");
 <s:iterator value="#userList" >
 
 <tr>
-	<td class="list_c"><s:checkbox name="keys" fieldValue="userId"/></td>
-	<td class="list_c"><s:property value="userId" /></td>
-	<td class="list_l"><s:property value="userName"/></td>
-	<td class="list_l"><s:property value="pref"/></td>
-	<td class="list_c"><s:property value="telNumber"/></td>
+	<td class="list_c"><s:checkbox name="keys" fieldValue="%{userId}"/></td>
+	<td class="list_c"><s:property value="%{userId}" /></td>
+	<td class="list_l"><s:property value="%{userName}"/></td>
+	<td class="list_l"><s:property value="%{pref}"/></td>
+	<td class="list_c"><s:property value="%{telNumber}"/></td>
 	<td class="list_c"><input type="button" value="編集"
-			onclick="openUserPopup(2, <s:property value="userId"/>);"/></td>
+			onclick="openUserPopup(<%= StaticValues.EDIT_MODE_MODIFY %>
+				, <s:property value="userId"/>);"/></td>
 </tr>
 
 </s:iterator>
@@ -174,8 +198,4 @@ window.alert("pass");
 	<s:hidden id="hUserName" name="userName" />
 	<s:hidden id="hPref" name="pref" />
 	<s:hidden id="hTelNumber" name="telNumber" />
-</s:form>
-
-<s:form id="userDeleteForm" method="get" action="userdelete">
-
 </s:form>
