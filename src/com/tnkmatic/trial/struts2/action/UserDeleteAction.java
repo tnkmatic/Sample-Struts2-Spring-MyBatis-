@@ -18,6 +18,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.tnkmatic.trial.dto.UserEditInfoDto;
 import com.tnkmatic.trial.service.UserService;
 import com.tnkmatic.trial.util.Log4jUtil;
+import com.tnkmatic.trial.util.StaticValues;
 
 /******************************************************************************
 *
@@ -65,10 +66,15 @@ public class UserDeleteAction extends BaseAction
 	public String execute() throws Exception {
 		List<Integer> userIdList = new ArrayList<Integer>();
 
-		for (final Integer userId : userEditInfoDto.getKeys()) {
-			if (userId != null) {
-				userIdList.add(userId);
+		if (userEditInfoDto.getKeys() != null) {
+			for (final Integer userId : userEditInfoDto.getKeys()) {
+				if (userId != null) {
+					userIdList.add(userId);
+				}
 			}
+
+			//以降の処理では未使用
+			userEditInfoDto.setEditMode(StaticValues.EDIT_MODE_DELETE);
 		}
 
 		if (userIdList.size() > 0) {
