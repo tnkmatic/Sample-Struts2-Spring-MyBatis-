@@ -51,6 +51,7 @@ public class UserSearchAction extends BaseAction
 
 	private UserCondDto userCondDto = new UserCondDto();
 	private List<UserInfoDto> userInfoDtoList;
+	private Integer userCount;
 
 	/**************************************************************************
 	 * Spring AOP と DI を併せて使用すると、インジェクションが出来ないため
@@ -81,6 +82,7 @@ public class UserSearchAction extends BaseAction
 		 * ユーザ一覧取得
 		 *************************************************************************/
 		userInfoDtoList = userService.getUserList(userCondDto);
+		userCount = userInfoDtoList.size();
 
 		return ActionSupport.SUCCESS;
 	}
@@ -105,6 +107,10 @@ public class UserSearchAction extends BaseAction
 
 	public List<UserInfoDto> getUserInfoDtoList() {
 		return userInfoDtoList;
+	}
+
+	public Integer getUserCount() {
+		return userCount;
 	}
 
 }
