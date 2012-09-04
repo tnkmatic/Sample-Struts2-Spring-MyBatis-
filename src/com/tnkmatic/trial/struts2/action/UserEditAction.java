@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 import com.tnkmatic.trial.dto.UserEditInfoDto;
 import com.tnkmatic.trial.dto.UserInfoDto;
 import com.tnkmatic.trial.service.UserService;
@@ -41,14 +40,13 @@ import com.tnkmatic.trial.util.Log4jUtil;
 *****************************************************************************/
 @Controller("userEditAction")
 @Scope("prototype")
-public class UserEditAction extends BaseAction
-		implements ModelDriven<UserEditInfoDto>{
+public class UserEditAction extends BaseAction {
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
 	private UserService userService;
 
-	private UserEditInfoDto userEditInfoDto = new UserEditInfoDto();
+	private UserEditInfoDto userEditInfoDto;
 
 	/* (非 Javadoc)
 	 * @see com.tnkmatic.trial.struts2.action.BaseAction#init()
@@ -107,8 +105,11 @@ public class UserEditAction extends BaseAction
 	 *  getter,setter
 	 *
 	 *************************************************************************/
-	@Override
-	public UserEditInfoDto getModel() {
+	public UserEditInfoDto getUserEditInfoDto() {
 		return userEditInfoDto;
+	}
+
+	public void setUserEditInfoDto(UserEditInfoDto userEditInfoDto) {
+		this.userEditInfoDto = userEditInfoDto;
 	}
 }

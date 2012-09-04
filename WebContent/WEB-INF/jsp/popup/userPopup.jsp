@@ -68,37 +68,37 @@ function entryUser() {
 	<td width="60" align="right">
 		<span class="itemLabel">ID：</span></td>
 	<td width="120">
-		<s:if test="%{editMode == 1}">
-			<s:textfield id="userId" name="userId"
-				maxlength="3" size="2" value="%{userId}"/>
+		<s:if test="%{userEditInfoDto.editMode == 1}">
+			<s:textfield id="userId"
+				maxlength="3" size="2" value="%{userEditInfoDto.userId}"/>
 		</s:if>
-		<s:elseif test="%{editMode == 2}">
+		<s:elseif test="%{userEditInfoDto.editMode == 2}">
 			<s:textfield id="userId" name="userId"
-				maxlength="3" size="2" value="%{userId}" disabled="true"/>
+				maxlength="3" size="2" value="%{userEditInfoDto.userId}" disabled="true"/>
 		</s:elseif>
 	</td></tr>
 
 	<%-- 氏名 --%>
 	<tr><td width="80" align="right">
 		<span class="itemLabel">氏名：</span></td>
-	<td><s:textfield id="userName" name="userName"
-			size="10" value="%{userName}"/></td></tr>
+	<td><s:textfield id="userName"
+			size="10" value="%{userEditInfoDto.userName}"/></td></tr>
 
 	<%-- 出身地 --%>
 	<tr>
 	<td width="60" align="right">
 		<span class="itemLabel">出身地：</span></td>
 	<td width="120">
-		<s:textfield id="pref" name="pref"
-			size="10" value="%{pref}"/></td></tr>
+		<s:textfield id="pref"
+			size="10" value="%{userEditInfoDto.pref}"/></td></tr>
 
 	<%-- 電話番号 --%>
 	<tr>
 	<td width="80" align="right">
 		<span class="itemLabel">電話番号：</span></td>
 	<td>
-		<s:textfield id="telNumber" name="telNumber"
-			size="10" value="%{telNumber}"/></td></tr>
+		<s:textfield id="telNumber"
+			size="10" value="%{userEditInfoDto.telNumber}"/></td></tr>
 
 	<%-- ボタン群 --%>
 	<tr>

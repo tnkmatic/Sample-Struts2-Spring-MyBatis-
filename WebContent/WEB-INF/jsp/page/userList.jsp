@@ -24,10 +24,10 @@ function openUserPopup(editMode, userId) {
 	 ******************************************************************************/
 	var url = null;
 	url = '${pageContext.request.contextPath}/trial/userdialog';
-	url = url + '?' +  'editMode' + '=' + editMode;
+	url = url + '?' +  'userEditInfoDto.editMode' + '=' + editMode;
 
 	if (editMode == 2) {
-		url = url + '&' + 'userId' + '=' + userId;
+		url = url + '&' + 'userEditInfoDto.userId' + '=' + userId;
 	}
 
 	/******************************************************************************
@@ -40,7 +40,10 @@ function openUserPopup(editMode, userId) {
 	 ******************************************************************************/
 	var eUserEditForm = document.getElementById('userEditForm');
 	document.getElementById('hEditMode').value = editMode;
-	eUserEditForm.submit();
+
+	if (document.getElementById('hUserId').value) {
+		eUserEditForm.submit();
+	}
 }
 
 /******************************************************************************
@@ -52,13 +55,17 @@ function deleteCheckedUser() {
 	var eForm		= document.getElementById('mainForm');
 	var eInputs		= document.getElementsByTagName('input');
 	var checked		= false;
+	var nameRegExp	= /userInfoDtoList\[\d+\]\.userId/g;
 
 	for (var i = 0; i < eInputs.length; i++) {
-		if (eInputs.item(i).type == 'checkbox'
-				&& eInputs.item(i).name == 'keys'
-				&& eInputs.item(i).checked) {
-			checked = true;
-			break;
+		if (eInputs.item(i).type == 'checkbox') {
+			var result = eInputs.item(i).name.match(nameRegExp);
+			if (result.length > 0
+					&& eInputs.item(i).checked) {
+				checked = true;
+				break;
+			}
+
 		}
 	}
 
@@ -88,8 +95,6 @@ function deleteCheckedUser() {
 		onclick="openUserPopup(<%= StaticValues.EDIT_MODE_ENTRY %>)" />
 </span>
 <span class="button">
-	<%-- <s:submit value="削除" cssClass="button" onclick="deleteCheckedUser();"
-		action="userdelete"  /> --%>
 	<input type="button" class="button" value="削除"
 		onclick="deleteCheckedUser();" />
 </span>
@@ -108,12 +113,15 @@ function deleteCheckedUser() {
 	<td width="60" align="right">
 		<span class="itemLabel">ID：</span></td>
 	<td width="120">
-		<s:textfield id="condUserId" name="condUserId" label="ユーザID"
+		<s:fielderror cssStyle="color:#FF0000;">
+			<s:param value="userCondDto.condUserId" />
+		</s:fielderror>
+		<s:textfield id="condUserId" name="userCondDto.condUserId" label="ユーザID"
 			maxlength="3" size="2"/></td>
 	<td width="80" align="right">
 		<span class="itemLabel">氏名：</span></td>
 	<td>
-		<s:textfield id="condUserName" name="condUserName" label="ユーザ名"
+		<s:textfield id="condUserName" name="userCondDto.condUserName" label="ユーザ名"
 			size="10"/></td>
 	</tr></table>
 </td></tr>
@@ -122,12 +130,12 @@ function deleteCheckedUser() {
 	<td width="60" align="right">
 		<span class="itemLabel">出身地：</span></td>
 	<td width="120">
-		<s:textfield id="condPref" name="condPref"
+		<s:textfield id="condPref" name="userCondDto.condPref"
 			label="出身地" size="10"/></td>
 	<td width="80" align="right">
 		<span class="itemLabel">電話番号：</span></td>
 	<td>
-		<s:textfield id="condTelNumber" name="condTelNumber"
+		<s:textfield id="condTelNumber" name="userCondDto.condTelNumber"
 			label="電話番号" size="10"/></td>
 	<td>
 		<span class="button">
@@ -166,19 +174,20 @@ function deleteCheckedUser() {
 	<th align="center">更新</th>
 </tr>
 
-<s:set name="userList" value="userInfoDtoList" />
-
-<s:iterator value="#userList" >
+<s:iterator value="userInfoDtoList" status="status">
 
 <tr>
-	<td class="list_c"><s:checkbox name="keys" fieldValue="%{userId}"/></td>
+	<%-- <td class="list_c"><s:checkbox name="keys" fieldValue="%{userId}"/></td> --%>
+	<td class="list_c">
+		<s:checkbox name="userInfoDtoList[%{#status.index}].userId"
+			value="false" fieldValue="%{userId}" /></td>
 	<td class="list_c"><s:property value="%{userId}" /></td>
 	<td class="list_l"><s:property value="%{userName}"/></td>
 	<td class="list_l"><s:property value="%{pref}"/></td>
 	<td class="list_c"><s:property value="%{telNumber}"/></td>
 	<td class="list_c"><input type="button" value="編集"
 			onclick="openUserPopup(<%= StaticValues.EDIT_MODE_MODIFY %>
-				, <s:property value="userId"/>);"/></td>
+				, <s:property value="%{userId}"/>);"/></td>
 </tr>
 
 </s:iterator>
@@ -193,9 +202,9 @@ function deleteCheckedUser() {
 
 <%-- 編集ポップアップの入力受取用 --%>
 <s:form id="userEditForm" method="post" action="useredit">
-	<s:hidden id="hEditMode" name="editMode" />
-	<s:hidden id="hUserId" name="userId" />
-	<s:hidden id="hUserName" name="userName" />
-	<s:hidden id="hPref" name="pref" />
-	<s:hidden id="hTelNumber" name="telNumber" />
+	<s:hidden id="hEditMode" name="userEditInfoDto.editMode" />
+	<s:hidden id="hUserId" name="userEditInfoDto.userId" />
+	<s:hidden id="hUserName" name="userEditInfoDto.userName" />
+	<s:hidden id="hPref" name="userEditInfoDto.pref" />
+	<s:hidden id="hTelNumber" name="userEditInfoDto.telNumber" />
 </s:form>

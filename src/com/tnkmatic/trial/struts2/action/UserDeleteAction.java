@@ -14,11 +14,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 import com.tnkmatic.trial.dto.UserEditInfoDto;
+import com.tnkmatic.trial.dto.UserInfoDto;
 import com.tnkmatic.trial.service.UserService;
 import com.tnkmatic.trial.util.Log4jUtil;
-import com.tnkmatic.trial.util.StaticValues;
 
 /******************************************************************************
 *
@@ -36,15 +35,14 @@ import com.tnkmatic.trial.util.StaticValues;
 *****************************************************************************/
 @Controller("userDeleteAction")
 @Scope("prototype")
-public class UserDeleteAction extends BaseAction
-		implements ModelDriven<UserEditInfoDto> {
+public class UserDeleteAction extends BaseAction {
 
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
 	private UserService userService;
 
-	private UserEditInfoDto userEditInfoDto = new UserEditInfoDto();
+	private List<UserEditInfoDto> userInfoDtoList;
 
 	/* (非 Javadoc)
 	 * @see com.tnkmatic.trial.struts2.action.BaseAction#init()
@@ -66,19 +64,14 @@ public class UserDeleteAction extends BaseAction
 	public String execute() throws Exception {
 		List<Integer> userIdList = new ArrayList<Integer>();
 
-		if (userEditInfoDto.getKeys() != null) {
-			for (final Integer userId : userEditInfoDto.getKeys()) {
-				if (userId != null) {
-					userIdList.add(userId);
-				}
+		for (final UserInfoDto userInfoDto : userInfoDtoList) {
+			if (userInfoDto.getUserId() != null) {
+				userIdList.add(userInfoDto.getUserId());
 			}
-
-			//以降の処理では未使用
-			userEditInfoDto.setEditMode(StaticValues.EDIT_MODE_DELETE);
 		}
 
 		if (userIdList.size() > 0) {
-			userService.deleteUser(userIdList);
+//			userService.deleteUser(userIdList);
 		}
 
 		return ActionSupport.SUCCESS;
@@ -97,10 +90,11 @@ public class UserDeleteAction extends BaseAction
 	 *  getter,setter
 	 *
 	 *************************************************************************/
-	@Override
-	public UserEditInfoDto getModel() {
-		return userEditInfoDto;
+	public List<UserEditInfoDto> getUserInfoDtoList() {
+		return userInfoDtoList;
 	}
 
-
+	public void setUserInfoDtoList(List<UserEditInfoDto> userInfoDtoList) {
+		this.userInfoDtoList = userInfoDtoList;
+	}
 }

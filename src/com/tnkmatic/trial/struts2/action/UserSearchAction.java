@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 import com.tnkmatic.trial.dto.UserCondDto;
 import com.tnkmatic.trial.dto.UserInfoDto;
 import com.tnkmatic.trial.service.UserService;
@@ -42,14 +42,13 @@ import com.tnkmatic.trial.util.Log4jUtil;
 *****************************************************************************/
 @Controller("userSearchAction")
 @Scope("prototype")
-public class UserSearchAction extends BaseAction
-		implements ModelDriven<UserCondDto> {
+public class UserSearchAction extends BaseAction {
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
 	private UserService userService;
 
-	private UserCondDto userCondDto = new UserCondDto();
+	private UserCondDto userCondDto;
 	private List<UserInfoDto> userInfoDtoList;
 	private Integer userCount;
 
@@ -100,19 +99,25 @@ public class UserSearchAction extends BaseAction
 	 *  getter,setter
 	 *
 	 *************************************************************************/
-	@Override
-	public UserCondDto getModel() {
+	public UserCondDto getUserCondDto() {
 		return userCondDto;
+	}
+
+	public void setUserCondDto(UserCondDto userCondDto) {
+		this.userCondDto = userCondDto;
 	}
 
 	public List<UserInfoDto> getUserInfoDtoList() {
 		return userInfoDtoList;
 	}
 
+	public void setUserInfoDtoList(List<UserInfoDto> userInfoDtoList) {
+		this.userInfoDtoList = userInfoDtoList;
+	}
+
 	public Integer getUserCount() {
 		return userCount;
 	}
-
 }
 
 
