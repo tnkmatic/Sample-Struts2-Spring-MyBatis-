@@ -55,7 +55,7 @@ function deleteCheckedUser() {
 	var eForm		= document.getElementById('mainForm');
 	var eInputs		= document.getElementsByTagName('input');
 	var checked		= false;
-	var nameRegExp	= /userInfoDtoList\[\d+\]\.userId/g;
+	var nameRegExp	= /userInfoDtoList\[\d+\]\.isProc/g;
 
 	for (var i = 0; i < eInputs.length; i++) {
 		if (eInputs.item(i).type == 'checkbox') {
@@ -179,8 +179,8 @@ function deleteCheckedUser() {
 <tr>
 	<%-- <td class="list_c"><s:checkbox name="keys" fieldValue="%{userId}"/></td> --%>
 	<td class="list_c">
-		<s:checkbox name="userInfoDtoList[%{#status.index}].userId"
-			value="false" fieldValue="%{userId}" /></td>
+		<s:hidden name="userInfoDtoList[%{#status.index}].userId" value="%{userId}" />
+		<s:checkbox name="userInfoDtoList[%{#status.index}].isProc"	value="true" /></td>
 	<td class="list_c"><s:property value="%{userId}" /></td>
 	<td class="list_l"><s:property value="%{userName}"/></td>
 	<td class="list_l"><s:property value="%{pref}"/></td>
