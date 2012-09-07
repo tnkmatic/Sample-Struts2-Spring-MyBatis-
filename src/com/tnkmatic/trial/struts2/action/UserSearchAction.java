@@ -3,7 +3,9 @@
  */
 package com.tnkmatic.trial.struts2.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -77,11 +79,30 @@ public class UserSearchAction extends BaseAction {
 							type="tiles",
 							location="userMaintenance")})
 	public String execute() throws Exception {
+		List<UserInfoDto> prevList 			= userInfoDtoList;
+		Map<Integer, UserInfoDto> prevMap 	= new HashMap<Integer, UserInfoDto>();
+
+		for (int i = 0; i < prevList.size(); i++) {
+			final UserInfoDto userInfoDto = prevList.get(i);
+			prevMap.put(userInfoDto.getUserId(), userInfoDto);
+		}
+
 		/**************************************************************************
 		 * ユーザ一覧取得
 		 *************************************************************************/
 		userInfoDtoList = userService.getUserList(userCondDto);
 		userCount = userInfoDtoList.size();
+
+		/**************************************************************************
+		 * チェックボックスの設定の復元
+		 *************************************************************************/
+		for (int i = 0; i < userInfoDtoList.size(); i++) {
+			final UserInfoDto userInfoDto =
+					prevMap.get(userInfoDtoList.get(i).getUserId());
+			if (userInfoDto != null) {
+				userInfoDtoList.get(i).setIsProc(userInfoDto.getIsProc());
+			}
+		}
 
 		return ActionSupport.SUCCESS;
 	}

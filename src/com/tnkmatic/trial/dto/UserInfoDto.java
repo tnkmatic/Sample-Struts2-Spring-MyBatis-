@@ -13,7 +13,7 @@ public class UserInfoDto extends BaseDto {
 	private String		pref;			//出身地
 	private String		telNumber;		//内線番号
 
-	private String		isProc;			//処理対象判別用
+	private Boolean		isProc;			//処理対象判別用
 
 	public Integer getUserId() {
 		return userId;
@@ -47,11 +47,11 @@ public class UserInfoDto extends BaseDto {
 		this.telNumber = telNumber;
 	}
 
-	public String getIsProc() {
+	public Boolean getIsProc() {
 		return isProc;
 	}
 
-	public void setIsProc(String isProc) {
+	public void setIsProc(Boolean isProc) {
 		this.isProc = isProc;
 	}
 

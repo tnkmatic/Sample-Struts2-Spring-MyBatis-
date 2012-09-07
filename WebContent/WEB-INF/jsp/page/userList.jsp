@@ -178,9 +178,17 @@ function deleteCheckedUser() {
 
 <tr>
 	<%-- <td class="list_c"><s:checkbox name="keys" fieldValue="%{userId}"/></td> --%>
+	<%-- <s:checbox> に関して
+		value：初期表示値
+		fieldValue：リクエスト時に設定されるパラメータ値
+		valueを設定せずに、fieldValueのみの設定の場合、isProcはnullになっている為、
+		リクエスト送信時もnullになり、checkboxInterceptorがやってくれているのか、
+		結果的に、受取値がfalseになる。
+	--%>
+
 	<td class="list_c">
 		<s:hidden name="userInfoDtoList[%{#status.index}].userId" value="%{userId}" />
-		<s:checkbox name="userInfoDtoList[%{#status.index}].isProc"	value="true" /></td>
+		<s:checkbox name="userInfoDtoList[%{#status.index}].isProc" value="%{isProc}" /></td>
 	<td class="list_c"><s:property value="%{userId}" /></td>
 	<td class="list_l"><s:property value="%{userName}"/></td>
 	<td class="list_l"><s:property value="%{pref}"/></td>
