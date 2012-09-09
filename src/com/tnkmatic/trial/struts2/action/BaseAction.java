@@ -7,10 +7,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 
-public abstract class BaseAction
-	implements ApplicationContextAware, Action {
+public abstract class BaseAction extends ActionSupport
+	implements ApplicationContextAware {
+
+	private static final long serialVersionUID = 1L;
 
 	protected ApplicationContext ctx;
 

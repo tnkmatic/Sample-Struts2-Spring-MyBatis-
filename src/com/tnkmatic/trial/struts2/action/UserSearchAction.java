@@ -14,6 +14,7 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,8 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Controller("userSearchAction")
 @Scope("prototype")
 public class UserSearchAction extends BaseAction {
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
@@ -70,10 +73,12 @@ public class UserSearchAction extends BaseAction {
 		return;
 	}
 
+
 	/* (非 Javadoc)
-	 * @see com.opensymphony.xwork2.Action#execute()
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	@Override
+	@SkipValidation
 	@Action(value="/userlist", results={
 				@Result(name=ActionSupport.SUCCESS,
 							type="tiles",
@@ -82,9 +87,11 @@ public class UserSearchAction extends BaseAction {
 		List<UserInfoDto> prevList 			= userInfoDtoList;
 		Map<Integer, UserInfoDto> prevMap 	= new HashMap<Integer, UserInfoDto>();
 
-		for (int i = 0; i < prevList.size(); i++) {
-			final UserInfoDto userInfoDto = prevList.get(i);
-			prevMap.put(userInfoDto.getUserId(), userInfoDto);
+		if (prevList != null) {
+			for (int i = 0; i < prevList.size(); i++) {
+				final UserInfoDto userInfoDto = prevList.get(i);
+				prevMap.put(userInfoDto.getUserId(), userInfoDto);
+			}
 		}
 
 		/**************************************************************************
@@ -124,6 +131,7 @@ public class UserSearchAction extends BaseAction {
 		return userCondDto;
 	}
 
+	@VisitorFieldValidator
 	public void setUserCondDto(UserCondDto userCondDto) {
 		this.userCondDto = userCondDto;
 	}
@@ -139,6 +147,8 @@ public class UserSearchAction extends BaseAction {
 	public Integer getUserCount() {
 		return userCount;
 	}
+
+
 }
 
 
