@@ -4,7 +4,6 @@
 package com.tnkmatic.trial.struts2.action;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -42,7 +40,8 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Results({
 	@Result(
 		name=ActionSupport.INPUT,
-		location="/WEB-INF/jsp/page/validError.jsp")
+		type="tiles",
+		location="userMaintenance")
 })
 /******************************************************************************
 *
@@ -95,7 +94,6 @@ public class UserSearchAction extends BaseAction {
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
 	 */
 	@Override
-	@SkipValidation
 	@Action(value="/userlist", results={
 				@Result(name=ActionSupport.SUCCESS,
 							type="tiles",

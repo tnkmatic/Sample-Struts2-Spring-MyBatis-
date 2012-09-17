@@ -8,6 +8,7 @@
 package com.tnkmatic.trial.dto;
 
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
 public class UserCondDto extends BaseDto {
@@ -20,13 +21,16 @@ public class UserCondDto extends BaseDto {
 		return condUserId;
 	}
 
-
 	@Validations(
 		intRangeFields={
 			@IntRangeFieldValidator(
 				min="100"
 				,max="999"
-				,key="error.range.userid")})
+				,key="error.range.userid")},
+		requiredStrings={
+			@RequiredStringValidator(
+				fieldName="condUserId"
+				,key="error.required.userid")})
 	public void setCondUserId(Integer condUserId) {
 		this.condUserId = condUserId;
 	}
