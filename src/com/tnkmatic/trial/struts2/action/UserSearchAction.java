@@ -4,16 +4,17 @@
 package com.tnkmatic.trial.struts2.action;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
-//import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -38,6 +39,11 @@ import com.tnkmatic.trial.util.Log4jUtil;
 //@ParentPackage("struts-default")
 //@Namespace("/test")
 
+@Results({
+	@Result(
+		name=ActionSupport.INPUT,
+		location="/WEB-INF/jsp/page/validError.jsp")
+})
 /******************************************************************************
 *
 * Spring Configuration Annotation
@@ -46,9 +52,9 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Controller("userSearchAction")
 @Scope("prototype")
 public class UserSearchAction extends BaseAction {
+
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
 	private UserService userService;
@@ -61,18 +67,29 @@ public class UserSearchAction extends BaseAction {
 	 * Spring AOP と DI を併せて使用すると、インジェクションが出来ないため
 	 * ApplicationContextから直接取得
 	 *************************************************************************/
-	/* (非 Javadoc)
-	 * @see com.tnkmatic.trial.action.BaseAction#init()
-	 */
 	@Override
-	public void init() throws Exception {
-		/*
+	public void initAction() throws Exception {
+		logger.info("### UserSearchActin init ###");
+
+/*
 		if (userService == null) {
 			userService = (UserService) ctx.getBean("userService");
-		}*/
+		}
+*/
+/*
+		String[] names = ctx.getBeanDefinitionNames();
+
+		for (int i = 0; i < names.length; i++) {
+			System.out.println(names[i]);
+
+			if (!names[i].equals("search")) {
+				final Object obj = ctx.getBean(names[i]);
+				System.out.println(obj.toString());
+			}
+		}
+*/
 		return;
 	}
-
 
 	/* (非 Javadoc)
 	 * @see com.opensymphony.xwork2.ActionSupport#execute()
@@ -119,6 +136,7 @@ public class UserSearchAction extends BaseAction {
 	 */
 	@Override
 	public void destroy() throws Exception {
+		logger.info("### UserSearchActin destory ###");
 		return;
 	}
 
@@ -147,8 +165,6 @@ public class UserSearchAction extends BaseAction {
 	public Integer getUserCount() {
 		return userCount;
 	}
-
-
 }
 
 

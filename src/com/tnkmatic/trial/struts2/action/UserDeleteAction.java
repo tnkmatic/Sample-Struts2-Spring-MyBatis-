@@ -37,8 +37,11 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Scope("prototype")
 public class UserDeleteAction extends BaseAction {
 
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
+
 	@Autowired(required=true)
 	private UserService userService;
 
@@ -48,7 +51,8 @@ public class UserDeleteAction extends BaseAction {
 	 * @see com.tnkmatic.trial.struts2.action.BaseAction#init()
 	 */
 	@Override
-	public void init() throws Exception {
+	public void initAction() throws Exception {
+		logger.info("### UserDeleteAction init ###");
 		return;
 	}
 

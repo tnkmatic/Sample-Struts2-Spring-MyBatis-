@@ -22,7 +22,7 @@ public abstract class BaseAction extends ActionSupport
 	 *
 	 *************************************************************************/
 	@PostConstruct
-	public abstract void init() throws Exception;
+	public abstract void initAction() throws Exception;
 
 	/**************************************************************************
 	 *

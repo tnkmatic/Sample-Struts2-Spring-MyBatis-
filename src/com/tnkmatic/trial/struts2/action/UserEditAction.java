@@ -41,6 +41,9 @@ import com.tnkmatic.trial.util.Log4jUtil;
 @Controller("userEditAction")
 @Scope("prototype")
 public class UserEditAction extends BaseAction {
+
+	private static final long serialVersionUID = 1L;
+
 	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
 	@Autowired(required=true)
@@ -52,7 +55,8 @@ public class UserEditAction extends BaseAction {
 	 * @see com.tnkmatic.trial.struts2.action.BaseAction#init()
 	 */
 	@Override
-	public void init() throws Exception {
+	public void initAction() throws Exception {
+		logger.info("### UserEditAction init ###");
 		return;
 	}
 
