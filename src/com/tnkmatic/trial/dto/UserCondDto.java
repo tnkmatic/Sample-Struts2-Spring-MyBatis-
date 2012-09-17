@@ -20,14 +20,6 @@ public class UserCondDto extends BaseDto {
 		return condUserId;
 	}
 
-	/*
-	@Validations(
-		intRangeFields= {
-			@IntRangeFieldValidator(
-				min="100"
-				,max="999"
-				,key="error.range.userid")})
-	*/
 
 	@Validations(
 		intRangeFields={
