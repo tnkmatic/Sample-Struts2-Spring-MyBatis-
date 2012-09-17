@@ -43,9 +43,8 @@ import com.tnkmatic.trial.util.Log4jUtil;
 public class UserEditAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
-
-	@SuppressWarnings(value = { "unused" })
 	private static Logger logger = Log4jUtil.getLogger();
+
 	@Autowired(required=true)
 	private UserService userService;
 
